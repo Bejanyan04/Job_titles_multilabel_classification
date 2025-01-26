@@ -73,7 +73,7 @@ The **`microsoft/deberta-v3-small`** model was selected for this task because of
 
 ## Model Deployment and Inference from Hugging Face Hub
 
-After training, the **best model** was uploaded to the **Hugging Face Hub** for easy access and inference. The model and tokenizer were pushed to the repository under the name **`ann0401/Job_Titles_Classification`**, making it publicly available for use.
+After training, the **best model** was uploaded to the **Hugging Face Hub** for easy access and inference. The model and tokenizer were pushed to the repository under the name **`ann0401/job_title_multilable_classification`**, making it publicly available for use.
 
 #### Steps for Inference:
 To use the trained model for inference, the **model** and **tokenizer** can be loaded directly from the Hugging Face Hub:

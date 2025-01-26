@@ -1,0 +1,7 @@
+{
+    "data_path": "JobLevelData.csv", 
+    "train_ratio" : 0.8,
+     "saved_model_dir" : "/content/drive/My Drive/multilabel_classification/huggingface_model/model_artifacts",
+     "best_checkpoint_dir": "/checkpoint-896",
+     "mapping_path": "mlb_mapping.pkl"
+  }

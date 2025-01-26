@@ -87,17 +87,3 @@ After training, the **best model** was uploaded to the **Hugging Face Hub** for 
 #### Steps for Inference:
 To use the trained model for inference, the **model** and **tokenizer** can be loaded directly from the Hugging Face Hub:
 
-```python
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
-
-# Load model and tokenizer from Hugging Face Hub
-model_name = 'ann0401/job_title_multilable_classification'
-model = AutoModelForSequenceClassification.from_pretrained(model_name)
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-
-# Sample inference
-inputs = tokenizer("Software Engineer", return_tensors="pt")
-outputs = model(**inputs)
-
-# Get predictions
-predictions = outputs.logits

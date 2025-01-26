@@ -1,7 +1,7 @@
 # Job Titles Multi-Label Classification
 
 ## Project Overview
-This project tackles the task of **multi-label classification** for job titles using the dataset consisting of Job Titles and corresponding Labels. Each job title in the dataset may have one or more labels corresponding to organizational roles.
+This project tackles the task of **multi-label classification** for job titles using a dataset consisting of Job Titles and corresponding Labels. Each job title in the dataset may have one or more labels corresponding to organizational roles.
 
 ---
 
@@ -80,14 +80,24 @@ The **`microsoft/deberta-v3-small`** model was selected for this task because of
 
 ---
 
-## Potential Enhancements
+## Model Deployment and Inference from Hugging Face Hub
 
-- **Parameter Optimization**:
-  - Fine-tune hyperparameters such as learning rate, batch size, and dropout rates for better results.
-- **Ensemble Techniques**:
-  - Experiment with ensemble models combining transformers with classical algorithms.
-- **Task-Specific Pretraining**:
-  - Pretrain a model on job-related corpora for enhanced domain adaptation.
+After training, the **best model** was uploaded to the **Hugging Face Hub** for easy access and inference. The model and tokenizer were pushed to the repository under the name **`ann0401/Job_Titles_Classification`**, making it publicly available for use.
 
----
+#### Steps for Inference:
+To use the trained model for inference, the **model** and **tokenizer** can be loaded directly from the Hugging Face Hub:
 
+```python
+from transformers import AutoModelForSequenceClassification, AutoTokenizer
+
+# Load model and tokenizer from Hugging Face Hub
+model_name = 'ann0401/job_title_multilable_classification'
+model = AutoModelForSequenceClassification.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+# Sample inference
+inputs = tokenizer("Software Engineer", return_tensors="pt")
+outputs = model(**inputs)
+
+# Get predictions
+predictions = outputs.logits

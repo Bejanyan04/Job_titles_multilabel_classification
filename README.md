@@ -70,15 +70,6 @@ The **`microsoft/deberta-v3-small`** model was selected for this task because of
 2. Evaluate **alternative transformer architectures** or **ensemble methods** for further performance gains.
 3. Compare the transformer-based model with **classical machine learning algorithms** to assess trade-offs in complexity and performance.
 
----
-
-## Reproducibility
-
-### Key Notes:
-- The project is documented and fully reproducible.
-- The dataset is excluded from version control using `.gitignore`.
-
----
 
 ## Model Deployment and Inference from Hugging Face Hub
 

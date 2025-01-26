@@ -20,21 +20,6 @@ def get_test_data(inference_param_path = 'inference_params.json'):
   test_data = test_full_df[['Title', 'Encoded Labels']]
   return test_data
 
-
-def get_model(inference_param_path = 'inference_params.json'):
-    inference_params = get_json_file(inference_param_path)
-    model_saving_dir = inference_params.get('saved_model_dir')
-    best_model_dir = inference_params.get('best_checkpoint_dir')
-    trained_model_folder = os.path.join(model_saving_dir, best_model_dir)
-    model = AutoModelForSequenceClassification.from_pretrained(trained_model_folder)
-    return model
-
-
-def get_tokenizer(inference_param_path = 'inference_params.json'):
-    inference_params = get_json_file(inference_param_path)  
-    model_saving_dir = inference_params.get('saved_model_dir')
-    tokenizer = AutoTokenizer.from_pretrained(model_saving_dir)
-    return tokenizer
     
 def get_classes():
   return  load_mlb_mapping()

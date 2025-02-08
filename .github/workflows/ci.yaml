@@ -24,11 +24,9 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install black flake8 mypy ruff
-          - name: Install Black
-          
-      - name: Insttall black for jupyter
-        run: pip install "black[jupyter]"
 
+      - name: Install Black for Jupyter
+        run: pip install "black[jupyter]"
 
       - name: Run Black (Code Formatting)
         run: black .
@@ -81,4 +79,4 @@ jobs:
         run: |
           dvc add models/best_model
           git add models/best_model.dvc
-          git commit -m "Track trained model with DVC"`
+          git commit -m "Track trained model with DVC"

@@ -25,6 +25,15 @@ jobs:
         run: |
           pip install black flake8 mypy ruff
 
+
+        # Step 3: Install dependencies
+      - name: Install requirements dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-cov flake8 mypy
+
+
       - name: Install Black for Jupyter
         run: pip install "black[jupyter]"
 

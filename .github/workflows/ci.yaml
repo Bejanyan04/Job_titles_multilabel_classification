@@ -77,12 +77,14 @@ jobs:
         run: pip install pytest
       # Step 3: Install dependencies
 
-
+      
+      - name: Pull Data from DVC
+        run: dvc pull
+        
       - name: Install requirements dependencies lib
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
 
       
       - name: Install transformers manually 

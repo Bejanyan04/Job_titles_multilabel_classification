@@ -21,3 +21,4 @@ flake8
 mypy 
 ruff
 black[jupyter]
+dvc

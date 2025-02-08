@@ -24,6 +24,11 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install black flake8 mypy ruff
+          - name: Install Black
+          
+      - name: Insttall black for jupyter
+        run: pip install "black[jupyter]"
+
 
       - name: Run Black (Code Formatting)
         run: black .

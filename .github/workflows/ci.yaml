@@ -54,7 +54,11 @@ jobs:
           python-version: "3.10"
 
       - name: Install Dependencies
-        run: pip install pytest, transformers
+        run: pip install pytest
+
+      
+      - name: Install transformers manually 
+        run: pip install transformers
 
       - name: Run Tests
         run: pytest tests/

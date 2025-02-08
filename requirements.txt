@@ -11,3 +11,13 @@ transformers
 evaluate
 sentencepiece
 accelerate
+dvc
+pytest
+fastapi
+flask
+gunicorn
+black
+flake8
+mypy 
+ruff
+black[jupyter]

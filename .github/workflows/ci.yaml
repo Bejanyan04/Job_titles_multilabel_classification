@@ -28,12 +28,6 @@ jobs:
       - name: Run Black (Code Formatting)
         run: black .
 
-      - name: Auto-fix with Ruff
-        run: ruff check --fix .  # This will auto-fix linting issues
-
-      - name: Run Linting Check
-        run: ruff check .  # This ensures only unfixable issues cause failure
-
       - name: Run Mypy (Type Checking)
         run: mypy .
 

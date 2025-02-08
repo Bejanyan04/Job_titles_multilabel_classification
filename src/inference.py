@@ -2,7 +2,7 @@ import pandas as pd
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import evaluate
 import torch
-import os 
+import json
 import numpy as np
 from src.utils import get_json_file
 from src.data_processing import get_splitted_data, load_mlb_mapping, clean_title
@@ -93,7 +93,7 @@ def get_tokenizer(inference_param_path = 'inference_params.json'):
 
 def get_sample_prediction(input_data, model, tokenizer, threshold = 0.5):
   #preprocess input_data
-  cleaned_text = clean_title(cleaned_text)
+  cleaned_text = clean_title(input_data)
   tokenized_data = tokenizer(cleaned_text, padding="max_length", truncation=True, max_length=128)
    
   model.eval()
@@ -102,13 +102,23 @@ def get_sample_prediction(input_data, model, tokenizer, threshold = 0.5):
     logits = outputs.logits  # Raw scores
     predictions = sigmoid(logits)
     transformed_pred = (predictions.detach().cpu().numpy() > threshold).astype(int).reshape(-1)
+    return transformed_pred
     
 
 
 def inference_pipeline(inference_params_path):
-  classes = load_mlb_mapping()
+  #classes = load_mlb_mapping()
   test_data = get_test_data()
   tokenizer = get_tokenizer()
   model = get_model() #get best model( finetuned huggingface model)
-  
-   
+  metrics  = compute_inference_metrics(test_data, tokenizer, model, threshold=0.5)
+  # Define the JSON file name
+  json_file_path = "metrics_results.json"
+
+  # Save the dictionary as a JSON file
+  with open(json_file_path, "w") as json_file:
+      json.dump(metrics, json_file, indent=4)
+
+  print(f"Metrics saved to {json_file_path}")
+
+    

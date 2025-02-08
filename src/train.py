@@ -5,13 +5,11 @@ from transformers.integrations import TensorBoardCallback
 import pandas as pd
 from utils import get_json_file, compute_class_weights
 from data_processing import  multi_label_binarization, get_splitted_data, create_class_mappings, tokenization_processings
-from transformers import AutoTokenizer,  DataCollatorWithPadding, AutoModelForSequenceClassification, TrainingArguments, Trainer
+from transformers import AutoTokenizer,  DataCollatorWithPadding, AutoModelForSequenceClassification, TrainingArguments
 
-import sklearn
 import argparse
 
 import evaluate
-import numpy as np
 
 
 def sigmoid(x):

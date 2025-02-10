@@ -13,7 +13,6 @@ jobs:
   evaluate:
     name: Evaluate Model with DVC
     runs-on: ubuntu-latest
-    needs: test
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4

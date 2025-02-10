@@ -1,11 +1,4 @@
 stages:
-  train:
-    cmd: python src/train.py
-    deps:
-      - data\JobLevelData.csv
-    outs:
-      - new_best_model
-
   evaluate:
     cmd: python src\inference.py
     deps:

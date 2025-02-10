@@ -96,7 +96,6 @@ jobs:
   evaluate:
     name: Evaluate Model with DVC
     runs-on: ubuntu-latest
-    needs: test
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -106,14 +105,18 @@ jobs:
         with:
           python-version: "3.10"
 
+
       - name: Install Dependencies
         run: pip install -r requirements.txt
+      
+      - name: Pull Data & Model from DVC
+        run: dvc pull  # Fetch both dataset & model
 
       - name: Install dependencies
         run: pip install torch transformers huggingface_hub
       - name: Authenticate with Hugging Face
         run: huggingface-cli login --token ${{ secrets.HF_TOKEN }}
-        
+
       - name: Configure DVC Remote
         run: |
           dvc remote add -d myremote s3://dvc-text-bucket

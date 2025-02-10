@@ -78,17 +78,17 @@ def divide_data_by_labels(data: pd.DataFrame, classes,label_column: str = 'Encod
 
 def get_model(inference_param_path = 'inference_params.json'):
     inference_params = get_json_file(inference_param_path)
-    #model_repo_id = inference_params.get("trained_model_hub_repo_id")
-    model_path = inference_params.get("trained_model_path")
-    model = AutoModelForSequenceClassification.from_pretrained(model_path)
+    model_repo_id = inference_params.get("trained_model_hub_repo_id")
+    #model_path = inference_params.get("trained_model_path")
+    model = AutoModelForSequenceClassification.from_pretrained(model_repo_id)
     return model
 
 
 def get_tokenizer(inference_param_path = 'inference_params.json'):
     inference_params = get_json_file(inference_param_path) 
-    #model_repo_id = inference_params.get("trained_model_hub_repo_id")
-    model_path = inference_params.get("trained_model_path")
-    tokenizer = AutoTokenizer.from_pretrained(model_path)
+    model_repo_id = inference_params.get("trained_model_hub_repo_id")
+    #model_path = inference_params.get("trained_model_path")
+    tokenizer = AutoTokenizer.from_pretrained(model_repo_id)
     return tokenizer
 
 def get_sample_prediction(input_data, model, tokenizer, threshold = 0.5):

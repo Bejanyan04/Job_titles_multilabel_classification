@@ -1,7 +1,6 @@
 import pytest
 import json
-import os
-from transformers import AutoModel, AutoTokenizer, AutoModelForSequenceClassification
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 
 
@@ -20,7 +19,8 @@ def test_inference_params_keys(inference_params):
 def load_model(inference_params):
     
     """Fixture to load the model and tokenizer."""
-    model_path = inference_params.get("trained_model_path")
+    #model_path = inference_params.get("trained_model_path")
+    model_path =  inference_params.get("trained_model_hub_repo_id")
 
     try:
         model = AutoModelForSequenceClassification.from_pretrained(model_path)

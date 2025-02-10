@@ -1,5 +1,4 @@
 import pytest
-import os
 import json
 @pytest.fixture(scope="session")
 def train_params():

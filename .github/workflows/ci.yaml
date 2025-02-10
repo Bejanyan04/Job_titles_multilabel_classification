@@ -74,6 +74,12 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
 
+      - name: Install dependencies
+        run: pip install torch transformers huggingface_hub
+
+      - name: Authenticate with Hugging Face
+        run: huggingface-cli login --token ${{ secrets.HF_TOKEN }}
+
       - name: Configure DVC Remote
         run: |
           dvc remote add -d myremote s3://dvc-text-bucket
@@ -103,6 +109,11 @@ jobs:
       - name: Install Dependencies
         run: pip install -r requirements.txt
 
+      - name: Install dependencies
+        run: pip install torch transformers huggingface_hub
+      - name: Authenticate with Hugging Face
+        run: huggingface-cli login --token ${{ secrets.HF_TOKEN }}
+        
       - name: Configure DVC Remote
         run: |
           dvc remote add -d myremote s3://dvc-text-bucket
@@ -116,7 +127,6 @@ jobs:
           dvc pull  # Ensure we have all required files
           dvc status  # Show which files are missing or updated
           ls -R data/  # List all files in the data directory
-
 
       - name: Run Evaluation Script
         run: dvc repro  evaluate

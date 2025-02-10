@@ -112,10 +112,10 @@ jobs:
 
           
       - name: Pull Data & Model from DVC
-            run: |
-              dvc pull  # Ensure we have all required files
-              dvc status  # Show which files are missing or updated
-              ls -R data/  # List all files in the data directory
+        run: |
+          dvc pull  # Ensure we have all required files
+          dvc status  # Show which files are missing or updated
+          ls -R data/  # List all files in the data directory
 
 
       - name: Run Evaluation Script

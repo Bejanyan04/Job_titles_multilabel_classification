@@ -79,7 +79,7 @@ jobs:
           dvc remote add -d myremote s3://dvc-text-bucket
           dvc remote modify myremote access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           dvc remote modify myremote secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          dvc remote modify myremote region us-east-1
+          dvc remote modify myremote region eu-north-1
 
       - name: Pull Data & Model from DVC
         run: dvc pull  # Fetch both dataset & model
@@ -114,5 +114,5 @@ jobs:
         run: dvc pull  # Ensure we have all required files
 
       - name: Run Evaluation Script
-        run: dvc repro --downstream evaluate
+        run: dvc repro  evaluate
 

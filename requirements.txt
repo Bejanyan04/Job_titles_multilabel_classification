@@ -22,3 +22,4 @@ mypy
 ruff
 black[jupyter]
 dvc
+dvc-s3

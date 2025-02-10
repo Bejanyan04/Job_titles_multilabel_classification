@@ -14,6 +14,7 @@
     "logging_steps":10,
     "eval_steps":30,
     "save_steps":30,
-    "report_to":"tensorboard"
+    "report_to":"tensorboard",
+    "trained_model_path": "best_model"
 
 }

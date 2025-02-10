@@ -2,6 +2,6 @@
     "data_path": "JobLevelData.csv", 
     "train_ratio" : 0.8,
      "mapping_path": "mlb_mapping.pkl",
-    "trained_model_hub_repo_id" : "ann0401/job_title_multilable_classification"
-
+    "trained_model_hub_repo_id" : "ann0401/job_title_multilable_classification",
+    "trained_model_path": "best_model"
   }

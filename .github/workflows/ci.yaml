@@ -105,12 +105,8 @@ jobs:
         with:
           python-version: "3.10"
 
-
       - name: Install Dependencies
         run: pip install -r requirements.txt
-      
-      - name: Pull Data & Model from DVC
-        run: dvc pull  # Fetch both dataset & model
 
       - name: Install dependencies
         run: pip install torch transformers huggingface_hub
@@ -123,8 +119,7 @@ jobs:
           dvc remote modify myremote access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           dvc remote modify myremote secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           dvc remote modify myremote region eu-north-1
-
-          
+  
       - name: Pull Data & Model from DVC
         run: |
           dvc pull  # Ensure we have all required files

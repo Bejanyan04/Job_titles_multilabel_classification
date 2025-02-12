@@ -1,0 +1,81 @@
+name: Azure ML Model Registration and Deployment
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to main branch
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  register-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'  # Specify your Python version
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install azure-ai-ml azure-identity transformers torch
+
+      # Step 4: Authenticate with Azure
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}  # Add Azure credentials to GitHub Secrets
+
+      # Step 6: Deploy the model to an endpoint
+      - name: Deploy Model
+        run: |
+          python -c "
+          from azure.ai.ml import MLClient
+          from azure.identity import DefaultAzureCredential
+          from azure.ai.ml.entities import ManagedOnlineEndpoint, ManagedOnlineDeployment, Model
+          import os
+
+          # Load Azure ML workspace details from GitHub secrets
+          subscription_id = '${{ secrets.AZURE_SUBSCRIPTION_ID }}'
+          resource_group = '${{ secrets.AZURE_RESOURCE_GROUP }}'
+          workspace_name = '${{ secrets.AZURE_ML_WORKSPACE_NAME }}'
+
+          # Initialize MLClient
+          credential = DefaultAzureCredential()
+          ml_client = MLClient(credential, subscription_id, resource_group, workspace_name)
+
+          # Define endpoint and deployment
+          endpoint_name = 'credit_defaults_model'
+          deployment_name = 'blue'
+          model_name = 'huggingface-finetuned-model'
+
+          # Create or update endpoint
+          endpoint = ManagedOnlineEndpoint(
+              name=endpoint_name,
+              auth_mode='key'
+          )
+          ml_client.online_endpoints.begin_create_or_update(endpoint).result()
+
+          # Create deployment
+          deployment = ManagedOnlineDeployment(
+              name=deployment_name,
+              endpoint_name=endpoint_name,
+              model=model_name,
+              instance_type='Standard_DS2_v2',
+              instance_count=1
+          )
+          ml_client.online_deployments.begin_create_or_update(deployment).result()
+
+          # Set traffic to 100% for the new deployment
+          endpoint.traffic = {deployment_name: 100}
+          ml_client.online_endpoints.begin_create_or_update(endpoint).result()
+
+          print(f'Model deployed to endpoint: {endpoint_name}')
+          "

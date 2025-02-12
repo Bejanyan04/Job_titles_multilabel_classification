@@ -3,7 +3,7 @@ name: Azure ML Model Registration and Deployment
 on:
   push:
     branches:
-      - main  # Trigger on push to main branch
+      - master # Trigger on push to main branch
   workflow_dispatch:  # Allow manual triggering
 
 jobs:

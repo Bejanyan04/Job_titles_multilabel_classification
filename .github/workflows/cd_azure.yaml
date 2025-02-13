@@ -36,7 +36,7 @@ jobs:
             --tenant "${{ secrets.AZURE_TENANT_ID }}"
 
       # Step 6: Deploy the model to an endpoint
-      - name: Deploy Model
+      - name: Deploy the Model
         run: |
           python -c "
           from azure.ai.ml import MLClient

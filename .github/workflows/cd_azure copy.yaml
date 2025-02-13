@@ -1,9 +1,9 @@
 name: Azure ML Model Registration and Deployment process
 
 on:
-  pull:
+  push:
     branches:
-      - master # Trigger on push to main branch
+      - main # Trigger on push to main branch
   workflow_dispatch:  # Allow manual triggering
 
 jobs:

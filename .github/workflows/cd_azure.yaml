@@ -27,7 +27,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install azure-ai-ml azure-identity transformers torch
 
-      # Step 4: Authenticate with Azure
+      # Step 4: Authenticate with Azure log
       - name: Azure Login
         uses: azure/login@v1
         with:

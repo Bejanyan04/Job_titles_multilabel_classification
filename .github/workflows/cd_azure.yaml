@@ -54,7 +54,7 @@ jobs:
           ml_client = MLClient(credential, subscription_id, resource_group, workspace_name)
 
           # Define endpoint and deployment
-          endpoint_name = 'credit_defaults_model'
+          endpoint_name = 'multiilabel-text-classification-deberta-model'
           deployment_name = 'blue'
           model_name = 'huggingface-finetuned-model'
 

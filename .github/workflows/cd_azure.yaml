@@ -39,9 +39,9 @@ jobs:
         run: az provider register --namespace Microsoft.MachineLearningServices
 
       - name: Assign Contributor Role
-              run: |
-                az role assignment create --assignee ${{ secrets.AZURE_CLIENT_ID }} --role "Contributor" --scope /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}
-                
+        run: |
+          az role assignment create --assignee ${{ secrets.AZURE_CLIENT_ID }} --role "Contributor" --scope /subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          
       # Step 6: Deploy the model to an endpoint
       - name: Deploy the Model
         run: |

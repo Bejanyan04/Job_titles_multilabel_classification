@@ -29,9 +29,11 @@ jobs:
 
       # Step 4: Authenticate with Azure log
       - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}  # Add Azure credentials to GitHub Secrets
+        run: |
+          az login --service-principal \
+            -u "${{ secrets.AZURE_CLIENT_ID }}" \
+            -p "${{ secrets.AZURE_CLIENT_SECRET }}" \
+            --tenant "${{ secrets.AZURE_TENANT_ID }}"
 
       # Step 6: Deploy the model to an endpoint
       - name: Deploy Model

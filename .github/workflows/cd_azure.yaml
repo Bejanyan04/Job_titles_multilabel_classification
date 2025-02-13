@@ -34,6 +34,10 @@ jobs:
             -u "${{ secrets.AZURE_CLIENT_ID }}" \
             -p "${{ secrets.AZURE_CLIENT_SECRET }}" \
             --tenant "${{ secrets.AZURE_TENANT_ID }}"
+            
+      - name: Register Azure ML Services
+        run: az provider register --namespace Microsoft.MachineLearningServices
+
 
       # Step 6: Deploy the model to an endpoint
       - name: Deploy the Model

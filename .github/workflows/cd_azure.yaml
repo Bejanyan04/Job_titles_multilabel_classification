@@ -56,7 +56,7 @@ jobs:
           # Define endpoint and deployment
           endpoint_name = 'deberta-text-model'
           deployment_name = 'blue'
-          model_name = 'huggingface-finetuned-model'
+          model_name = 'credit_defaults_model'
 
           # Create or update endpoint
           endpoint = ManagedOnlineEndpoint(

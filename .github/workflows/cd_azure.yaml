@@ -27,12 +27,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install azure-ai-ml azure-identity transformers torch
 
-      # Step 4: Authenticate with Azure log
       - name: Azure Login
         run: |
           az login --service-principal \
             -u "${{ secrets.AZURE_CLIENT_ID }}" \
-            "${{ secrets.AZURE_CLIENT_SECRET }}" \
+            --password="${{ secrets.AZURE_CLIENT_SECRET }}" \
             --tenant "${{ secrets.AZURE_TENANT_ID }}"
 
       - name: Register Azure ML Services

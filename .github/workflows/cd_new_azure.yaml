@@ -3,7 +3,7 @@ name: Azure ML Model Registration and Deployment process
 on:
   push:
     branches:
-      - main # Trigger on push to main branch
+      - master # Trigger on push to main branch
   workflow_dispatch:  # Allow manual triggering
 
 jobs:
@@ -39,20 +39,32 @@ jobs:
 
       # Step 6: Deploy the model to an endpoint
       - name: Deploy the Model
+        env:
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
+          AZURE_ML_WORKSPACE_NAME: ${{ secrets.AZURE_ML_WORKSPACE_NAME }}
+          
         run: |
           python -c "
           from azure.ai.ml import MLClient
-          from azure.identity import DefaultAzureCredential
-          from azure.ai.ml.entities import ManagedOnlineEndpoint, ManagedOnlineDeployment, Model
+          from azure.identity import ClientSecretCredential
+          from azure.ai.ml.entities import ManagedOnlineEndpoint, ManagedOnlineDeployment
           import os
 
-          # Load Azure ML workspace details from GitHub secrets
-          subscription_id = '${{ secrets.AZURE_SUBSCRIPTION_ID }}'
-          resource_group = '${{ secrets.AZURE_RESOURCE_GROUP }}'
-          workspace_name = '${{ secrets.AZURE_ML_WORKSPACE_NAME }}'
+          # Load Azure ML workspace details from environment variables
+          subscription_id = os.environ['AZURE_SUBSCRIPTION_ID']
+          resource_group = os.environ['AZURE_RESOURCE_GROUP']
+          workspace_name = os.environ['AZURE_ML_WORKSPACE_NAME']
 
-          # Initialize MLClient
-          credential = DefaultAzureCredential()
+          # Initialize MLClient with ClientSecretCredential
+          credential = ClientSecretCredential(
+              tenant_id=os.environ['AZURE_TENANT_ID'],
+              client_id=os.environ['AZURE_CLIENT_ID'],
+              client_secret=os.environ['AZURE_CLIENT_SECRET']
+          )
           ml_client = MLClient(credential, subscription_id, resource_group, workspace_name)
 
           # Define endpoint and deployment

@@ -1,5 +1,6 @@
 name: Azure ML Model Registration and Deployment process
 
+
 on:
   push:
     branches:
